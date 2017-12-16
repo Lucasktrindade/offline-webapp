@@ -42,12 +42,15 @@ export default {
     }
   },
   mounted () {
-    const productsRef = this.firebaseService.getFirestore().collection('products')
-    productsRef.get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((value) => {
-          this.products.push(value.data())
-        })
+    const firestore = this.firebaseService.getFirestore()
+    firestore.enablePersistence()
+      .then(() => {
+        firestore.collection('products').get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((value) => {
+              this.products.push(value.data())
+            })
+          })
       })
   }
 }

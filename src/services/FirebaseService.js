@@ -1,18 +1,25 @@
 import firebase from 'firebase'
 import firestore from 'firebase/firestore'
 
-export default class FirebaseService {
-  constructor () {
-    this.vuefire = firebase.initializeApp({
+export const firebaseInstance = () => {
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
       apiKey: 'AIzaSyBn5i2ddGFQ7P9oUeiLoQizKi0IkqaRQgA',
       authDomain: 'offline-demo-app.firebaseapp.com',
       projectId: 'offline-demo-app'
     })
-    console.log(firestore)
-    this.db = firebase.firestore()
+    persistedDB().then(() => {
+      console.log('Enable Firestore data Offline')
+    })
   }
+  return firebase
+}
 
-  getFirestore () {
-    return this.db
-  }
+export const persistedDB = () => {
+  return firebaseInstance().firestore().enablePersistence()
+  // return firebaseInstance().firestore()
+}
+
+export const db = () => {
+  return firebaseInstance().firestore()
 }

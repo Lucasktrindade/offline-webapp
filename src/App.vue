@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <span>Offline Demo App</span>
+      <router-link :to="{ name: 'Showcase'}" class="link left">Offline Demo App</router-link>
+      <router-link :to="{ name: 'Cart'}" class="link right">Carrinho</router-link>
     </header>
     <main>
       <router-view></router-view>
@@ -40,8 +41,9 @@ header {
   color: #ffffff;
 }
 
-header span {
-  display: block;
+header .link {
+  color: #ffffff;
+  display: inline-block;
   position: relative;
   font-size: 20px;
   line-height: 1;
@@ -49,5 +51,13 @@ header span {
   font-weight: 400;
   box-sizing: border-box;
   padding-top: 16px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }
 </style>

@@ -26,7 +26,7 @@
     }
 </style>
 <script>
-import FirebaseService from '@/services/FirebaseService'
+import {firebaseInstance, db} from '@/services/FirebaseService'
 import Product from '@/components/Product'
 
 export default {
@@ -37,21 +37,16 @@ export default {
   data () {
     return {
       title: 'Produtos',
-      firebaseService: new FirebaseService(),
       products: []
     }
   },
-  mounted () {
-    const firestore = this.firebaseService.getFirestore()
-    firestore.enablePersistence()
-      .then(() => {
-        firestore.collection('products').get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((value) => {
-              this.products.push(value.data())
-            })
+  created () {
+    db().collection('products').get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((value) => {
+            this.products.push(value.data())
           })
-      })
+        })      
   }
 }
 </script>

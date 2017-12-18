@@ -16,7 +16,12 @@
 <script>
   export default {
     name: 'product',
-    props: ['item']
+    props: ['item'],
+    methods: {
+      addToCart (item) {
+       console.log(item)
+      }
+    }
   }
 </script>
 <style scoped>
